@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
 
 const Header = () => {
   return (
-    <header className='p-4 flex items-center justify-between'>
+    <header className='flex items-center justify-between'>
         <a href="" className='flex items-center gap-1'>
           <FaPaperPlane className='h-8 w-8 rotate-6'/>
           <span className="font-dancing font-extrabold text-xl">
