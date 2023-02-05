@@ -3,6 +3,7 @@ import {FaPaperPlane} from 'react-icons/fa'
 import {CiSearch} from 'react-icons/ci'
 import {HiBars3} from 'react-icons/hi2'
 import {AiOutlineUser} from 'react-icons/ai'
+import { Link } from 'react-router-dom'
 
 
 const Header = () => {
@@ -24,12 +25,12 @@ const Header = () => {
             <CiSearch className='w-4 h-4'/>
           </button>
         </div>
-        <div className="flex items-center gap-2 border border-gray-300 rounded-full py-2 px-4 hover:shadow-md hover:shadow-gray-300 transition-shadow cursor-pointer">
+        <Link to={'/login'} className="flex items-center gap-2 border border-gray-300 rounded-full py-2 px-4 hover:shadow-md hover:shadow-gray-300 transition-shadow cursor-pointer">
           <HiBars3 className='font-raleway '/>
           <div className='bg-gray-500 border-2 border-gray-500 rounded-full text-white'>
             <AiOutlineUser/>
           </div>
-        </div>
+        </Link>
       </header>
   )
 }
