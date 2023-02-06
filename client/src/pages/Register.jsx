@@ -1,8 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { FaPaperPlane } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 const Register = () => {
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const registerUser = (e) => {
+    e.preventDefault();
+    axios.post('/register', {
+      username,
+      email,
+      password
+    });
+  }
   return (
     <div className='min-h-screen flex flex-col gap-10 items-center justify-center'>
         <Link to={'/'} className='flex items-center gap-1 justify-center'>
@@ -11,10 +24,34 @@ const Register = () => {
             Havenly
           </span>
         </Link>
-        <form className='max-w-md mx-auto px-2'>
-            <input className='font-raleway placeholder:font-raleway' type="text" name="username" id="username" placeholder='User name'/>
-            <input className='font-raleway placeholder:font-raleway' type="email" name="email" id="email" placeholder='Email'/>
-            <input className='font-raleway placeholder:font-raleway' type="password" name="password" id="password" placeholder='Password' />
+        <form className='max-w-md mx-auto px-2' onSubmit={registerUser}>
+            <input 
+              className='font-raleway placeholder:font-raleway' 
+              type="text" 
+              name="username" 
+              id="username" 
+              placeholder='User name'
+              value={username}
+              onInput={e => setUsername(e.target.value)}
+            />
+            <input 
+              className='font-raleway placeholder:font-raleway' 
+              type="email" 
+              name="email" 
+              id="email" 
+              placeholder='Email'
+              value={email}
+              onInput={e => setEmail(e.target.value)}
+            />
+            <input 
+              className='font-raleway placeholder:font-raleway' 
+              type="password" 
+              name="password" 
+              id="password" 
+              placeholder='Password' 
+              value={password}
+              onInput={e => setPassword(e.target.value)}
+            />
             <button className='bg-primary w-full rounded-xl py-2 text-white font-raleway mt-2'>
                 Register
             </button>
