@@ -2,7 +2,9 @@ require('dotenv').config();
 const express = require('express');
 var cors = require('cors');
 const mongoose = require('mongoose');
-const User = require('./models/User')
+
+const authRoutes = require("./routes/auth");
+
 
 //db connection string
 const connectDB = require('./db/connect')
@@ -17,18 +19,9 @@ app.use(cors({
   origin: 'http://127.0.0.1:5173',
 }));
 
-app.get('/test', (req, res) => {
-  res.json('Application work')
-})
 
-app.post('/register', (req, res) => {
-  const {username, email, password} = req.body;
-  User.create({
-    username,
-    email,
-    password
-  })
-})
+//routes
+app.use("/api/v1/auth", authRoutes);
 
 const port = process.env.PORT || 3000;
 
