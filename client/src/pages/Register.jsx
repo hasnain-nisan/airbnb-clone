@@ -19,8 +19,7 @@ const Register = () => {
       toast.error('Password does not match.');
     } else if (password.trim().length < 6){
       toast.error('Password must be greater than or equal to 6 charecter.');
-    }
-     else {
+    } else {
       try {
         await axios.post('/register', {
           username,
