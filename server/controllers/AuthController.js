@@ -6,20 +6,27 @@ const bcryptSalt = bcrypt.genSaltSync(10);
 const register = async (req, res) => {
   try {
     const {username, email, password} = req.body;
+    
+    if(password.trim().length < 6){
+      return res.status(400).json({
+        msg:"Password length must be greatar or equal to 6"
+      });
+    }
+
     const newUser = await User.create({
       username,
       email,
-      password: bcrypt.hashSync(password, bcryptSalt) 
+      password: bcrypt.hashSync(password.trim(), bcryptSalt) 
     });
 
-    res.json(newUser);
+    return res.json(newUser);
     // await newUser.save();
     // const accessToken =  newUser.generateAccessToken()
     // res.status(200).json({
     //     accessToken
     // });
   } catch (error) {
-    res.status(404).json({ message: error.message });
+    return res.status(422).json(error);
   }
 };
 

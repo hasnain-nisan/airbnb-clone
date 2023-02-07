@@ -9,12 +9,18 @@ const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmpassword, setConfirmpassword] = useState("");
 
   const registerUser = async (e) => {
     e.preventDefault();
-    if(username === "" || email === "" || password === ""){
+    if(username === "" || email === "" || password === "" || confirmpassword === ""){
       toast.error('Must fill all the fields.');
-    } else {
+    } else if (password !== confirmpassword) {
+      toast.error('Password does not match.');
+    } else if (password.trim().length < 6){
+      toast.error('Password must be greater than or equal to 6 charecter.');
+    }
+     else {
       try {
         await axios.post('/register', {
           username,
@@ -59,9 +65,18 @@ const Register = () => {
               type="password" 
               name="password" 
               id="password" 
-              placeholder='Password' 
+              placeholder='Password (Min 6 charecter)' 
               value={password}
               onInput={e => setPassword(e.target.value)}
+            />
+            <input 
+              className='font-raleway placeholder:font-raleway' 
+              type="password" 
+              name="confirm_password" 
+              id="confirm_password" 
+              placeholder='Re enter password' 
+              value={confirmpassword}
+              onInput={e => setConfirmpassword(e.target.value)}
             />
             <button className='bg-primary w-full rounded-xl py-2 text-white font-raleway mt-2'>
                 Register
