@@ -19,12 +19,7 @@ const register = async (req, res) => {
       password: bcrypt.hashSync(password.trim(), bcryptSalt) 
     });
 
-    return res.json(newUser);
-    // await newUser.save();
-    // const accessToken =  newUser.generateAccessToken()
-    // res.status(200).json({
-    //     accessToken
-    // });
+    return res.status(200).json(newUser);
   } catch (error) {
     return res.status(422).json(error);
   }
