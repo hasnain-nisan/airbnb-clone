@@ -3,18 +3,29 @@ import { FaPaperPlane } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
+ import { toast } from 'react-toastify';
+
 const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const registerUser = (e) => {
+  const registerUser = async (e) => {
     e.preventDefault();
-    axios.post('/register', {
-      username,
-      email,
-      password
-    });
+    if(username === "" || email === "" || password === ""){
+      toast.error('Must fill all the fields.');
+    } else {
+      try {
+        await axios.post('/register', {
+          username,
+          email,
+          password
+        });
+        toast.success('Registration successful. Now you can log in.');
+      } catch (e) {
+        toast.error('Registration failed, Please try again later.')
+      }
+    }
   }
   return (
     <div className='min-h-screen flex flex-col gap-10 items-center justify-center'>

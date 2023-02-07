@@ -21,7 +21,7 @@ app.use(cors({
 
 
 //routes
-app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1", authRoutes);
 
 const port = process.env.PORT || 3000;
 
