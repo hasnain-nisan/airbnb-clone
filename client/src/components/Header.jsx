@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {FaPaperPlane} from 'react-icons/fa'
 import {CiSearch} from 'react-icons/ci'
 import {HiBars3} from 'react-icons/hi2'
 import {AiOutlineUser} from 'react-icons/ai'
 import { Link } from 'react-router-dom'
+import { UserContext } from '../context/UserContext'
 
 
 const Header = () => {
+  const {user} = useContext(UserContext)
   return (
     <header className='flex items-center justify-between'>
         <a href="" className='flex items-center gap-1'>
@@ -30,6 +32,13 @@ const Header = () => {
           <div className='bg-gray-500 border-2 border-gray-500 rounded-full text-white'>
             <AiOutlineUser/>
           </div>
+          {
+            !!user && (
+              <span className="font-raleway text-[12px]">
+                {user.username}
+              </span>
+            )
+          }
         </Link>
       </header>
   )
