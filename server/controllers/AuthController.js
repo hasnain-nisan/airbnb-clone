@@ -85,8 +85,20 @@ const userProfile = async (req, res) => {
   }
 };
 
+const logout = async (req, res) => {
+  try {
+    res.cookie('token', "").status(200).json({
+      message: "Successfully logged out",
+      data: null
+    });
+  } catch (error) {
+    return res.status(422).json(error);
+  }
+}
+
 module.exports = {
     register,
     login,
-    userProfile
+    userProfile,
+    logout
 }
