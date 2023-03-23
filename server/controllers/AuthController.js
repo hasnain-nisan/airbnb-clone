@@ -53,10 +53,11 @@ const login = async (req, res) => {
           {}
         );
 
-        return res.cookie('token', token, { sameSite: 'none', secure: true }).status(200).json({
-          message: "Successfully logged in",
-          data: user
-        });
+        return res.cookie('token', token, { sameSite: 'none', secure: true })
+          .status(200).json({
+            message: "Successfully logged in",
+            data: user
+          });
       }
     }
   } catch (error) {
@@ -67,7 +68,25 @@ const login = async (req, res) => {
   }
 };
 
+const userProfile = async (req, res) => {
+  try {
+    const {token} = req.cookies;
+    if(token){
+      jwt.verify(token, JWT_REFRESH_TOKEN_SECRET, {}, async (err, user) => {
+        if(err) throw err;
+        const {username, email, _id} = await User.findById(user.id)
+        res.status(200).json({username, email, _id})
+      })
+    } else {
+      res.json(null);
+    }
+  } catch (error) {
+    return res.status(422).json(error);
+  }
+};
+
 module.exports = {
     register,
-    login
+    login,
+    userProfile
 }
